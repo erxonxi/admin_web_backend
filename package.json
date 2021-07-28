@@ -19,6 +19,7 @@
   "homepage": "https://github.com/erxonxi/admin_web_backend#readme",
   "dependencies": {
     "@prisma/client": "^2.28.0",
+    "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "morgan": "^1.10.0",

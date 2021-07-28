@@ -1,5 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
+import * as child from 'child_process';
 
 const db = new PrismaClient();
 
@@ -38,11 +39,20 @@ export const createScript = async ( req: Request, res: Response ) => {
 }
 
 export const executeScript = async ( req: Request, res: Response ) => {
-    const id = Number( req.params.id );
+    const name = String( req.params.name );
     try {
         const scripts = db.scripts;
-        const script = await scripts.findUnique( { where: { id } } );
-        return res.status( 201 ).json( script );
+        const script = await scripts.findUnique({ where: { name } });
+        child.exec( String(script?.content), (error, stdout, stderr) => {
+            if (error) {
+                const log = error;
+            }
+            if (stderr) {
+                const log = stderr;
+            }
+            const log = stdout;
+            return res.status( 201 ).contentType('txt').send( log );
+        });
     } catch ( error ) {
         return res.status( 501 ).json( error )
     }
