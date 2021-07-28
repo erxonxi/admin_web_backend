@@ -1,0 +1,40 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model users {
+  username    String   @id @unique
+  first_name  String?
+  last_name   String?
+  email       String   @unique
+  role        roles    @default(USER)
+  createdAt   DateTime @default(now())
+}
+
+model scripts {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique
+  content     String?
+  history     histoy_executions[]
+}
+
+model histoy_executions {
+  id          Int       @id @default(autoincrement())
+  script_id   Int       
+  script      scripts   @relation(fields: [script_id], references: [id])
+  log         String?
+  createdAt   DateTime  @default(now())
+}
+
+enum roles {
+  USER
+  ADMIN
+}
