@@ -1,8 +1,13 @@
 import { Router } from 'express';
+import { signin, signUp } from '../controllers/auth.controller';
 import { createHistoryScript, getHistoryScript, listHistoryScripts, viewHistoryScript } from '../controllers/historyScripts.controller';
 import { createScript, executeScript, getScript, listScripts } from '../controllers/scripts.controller';
 
 const router = Router();
+
+// Auth
+router.post( '/api/auth/singup', signUp );
+router.post( '/api/auth/singin', signin );
 
 // Scripts
 router.post( '/api/scripts', listScripts );

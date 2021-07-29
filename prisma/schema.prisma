@@ -12,10 +12,8 @@ generator client {
 
 model users {
   username    String   @id @unique
-  first_name  String?
-  last_name   String?
   email       String   @unique
-  role        roles    @default(USER)
+  password    String   @db.VarChar(255)
   createdAt   DateTime @default(now())
 }
 
@@ -32,9 +30,4 @@ model histoy_executions {
   script      scripts   @relation(fields: [script_id], references: [id])
   log         String?   @db.Text
   createdAt   DateTime  @default(now())
-}
-
-enum roles {
-  USER
-  ADMIN
 }
