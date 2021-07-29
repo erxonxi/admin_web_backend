@@ -30,7 +30,7 @@ model histoy_executions {
   id          Int       @id @default(autoincrement())
   script_id   Int       
   script      scripts   @relation(fields: [script_id], references: [id])
-  log         String?
+  log         String?   @db.Text
   createdAt   DateTime  @default(now())
 }
 
