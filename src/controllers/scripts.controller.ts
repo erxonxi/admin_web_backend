@@ -44,13 +44,14 @@ export const executeScript = async ( req: Request, res: Response ) => {
         const scripts = db.scripts;
         const script = await scripts.findUnique({ where: { name } });
         child.exec( String(script?.content), (error, stdout, stderr) => {
+            var log: any;
             if (error) {
-                const log = error;
+                log = error;
             }
             if (stderr) {
-                const log = stderr;
+                log = stderr;
             }
-            const log = stdout;
+            log = stdout;
             return res.status( 201 ).contentType('txt').send( log );
         });
     } catch ( error ) {
