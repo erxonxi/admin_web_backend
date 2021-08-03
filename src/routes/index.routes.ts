@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { signin, signUp } from '../controllers/auth.controller';
+import { createGroup, getGroup, listGroups } from '../controllers/group.controller';
 import { createHistoryScript, getHistoryScript, listHistoryScripts, viewHistoryScript } from '../controllers/historyScripts.controller';
 import { createScript, executeScript, getScript, listScripts } from '../controllers/scripts.controller';
 
@@ -20,5 +21,10 @@ router.post( '/api/history_scripts', listHistoryScripts );
 router.get( '/api/history_script/:id', getHistoryScript );
 router.post( '/api/history_script', createHistoryScript );
 router.get( '/api/history_script/:id/view', viewHistoryScript );
+
+// Group
+router.post( '/api/groups', listGroups );
+router.get( '/api/group/:id', getGroup );
+router.post( '/api/group', createGroup );
 
 export default router;
