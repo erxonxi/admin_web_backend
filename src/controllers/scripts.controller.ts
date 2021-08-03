@@ -42,8 +42,9 @@ export const executeScript = async ( req: Request, res: Response ) => {
     const name = String( req.params.name );
     try {
         const scripts = db.scripts;
+        const histoy_executions = db.histoy_executions;
         const script = await scripts.findUnique({ where: { name } });
-        child.exec( String(script?.content), (error, stdout, stderr) => {
+        child.exec( String(script?.content), async (error, stdout, stderr) => {
             var log: any;
             if (error) {
                 log = error;
@@ -52,6 +53,11 @@ export const executeScript = async ( req: Request, res: Response ) => {
                 log = stderr;
             }
             log = stdout;
+            const history_excution = await histoy_executions.create({
+                data: {
+                    script_id: script?.id || 1,
+                    log: log
+                }});
             return res.status( 201 ).contentType('txt').send( log );
         });
     } catch ( error ) {

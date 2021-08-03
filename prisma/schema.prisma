@@ -18,10 +18,26 @@ model users {
 }
 
 model scripts {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  content       String?
+  history       histoy_executions[]
+  scripts_group scripts_group[]
+}
+
+model scripts_group {
   id          Int       @id @default(autoincrement())
-  name        String    @unique
-  content     String?
-  history     histoy_executions[]
+  script_id   Int
+  group_id    Int
+  script      scripts   @relation(fields: [script_id], references: [id])
+  group       groups   @relation(fields: [group_id], references: [id])
+}
+
+model groups {
+  id            Int       @id @default(autoincrement())
+  name          String    @unique
+  description   String?
+  scripts_group scripts_group[]
 }
 
 model histoy_executions {
