@@ -70,7 +70,6 @@ export const executeFile = async ( req: Request, res: Response ) => {
     try {
         child.execFile( '/root/scripts/' + name + '.sh', async (error, stdout, stderr) => {
             var log: any;
-            console.log(error, stdout, stderr);
             if (error) {
                 log = error;
             }
