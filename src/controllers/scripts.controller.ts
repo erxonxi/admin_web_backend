@@ -68,7 +68,7 @@ export const executeScript = async ( req: Request, res: Response ) => {
 export const executeFile = async ( req: Request, res: Response ) => {
     const name = String( req.params.name );
     try {
-        child.exec( '/root/scripts/' + name + '.sh', async (error, stdout, stderr) => {
+        child.execFile( '/root/scripts/' + name + '.sh', async (error, stdout, stderr) => {
             var log: any;
             if (error) {
                 log = error;
