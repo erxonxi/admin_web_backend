@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { signin, signUp } from '../controllers/auth.controller';
 import { createGroup, getGroup, listGroups } from '../controllers/group.controller';
 import { createHistoryScript, getHistoryScript, listHistoryScripts, viewHistoryScript } from '../controllers/historyScripts.controller';
-import { createScript, executeScript, getScript, listScripts } from '../controllers/scripts.controller';
+import { createScript, executeFile, executeScript, getScript, listScripts } from '../controllers/scripts.controller';
 
 const router = Router();
 
@@ -15,6 +15,7 @@ router.post( '/api/scripts', listScripts );
 router.get( '/api/script/:id', getScript );
 router.post( '/api/script', createScript );
 router.get( '/api/script/:name/execute', executeScript );
+router.get( '/api/script/:name/file', executeFile );
 
 // HistoryScripts
 router.post( '/api/history_scripts', listHistoryScripts );

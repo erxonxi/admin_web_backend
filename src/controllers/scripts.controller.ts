@@ -64,3 +64,22 @@ export const executeScript = async ( req: Request, res: Response ) => {
         return res.status( 501 ).json( error )
     }
 }
+
+export const executeFile = async ( req: Request, res: Response ) => {
+    const name = String( req.params.name );
+    try {
+        child.exec( '/root/scripts/' + name + '.sh', async (error, stdout, stderr) => {
+            var log: any;
+            if (error) {
+                log = error;
+            }
+            if (stderr) {
+                log = stderr;
+            }
+            log = stdout;
+            return res.status( 201 ).contentType('txt').send( log );
+        });
+    } catch ( error ) {
+        return res.status( 501 ).json( error )
+    }
+}
